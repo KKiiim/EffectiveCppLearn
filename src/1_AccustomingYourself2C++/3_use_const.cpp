@@ -22,7 +22,7 @@ void f(void) {
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 class Text {
- public:
+public:
   Text(std::string t) : text(t) {}
   const char &operator[](std::size_t position) const {
     printf("const []\n");
@@ -36,20 +36,19 @@ class Text {
     return const_cast<char &>(static_cast<const Text &>(*this)[position]);
   }
 
- private:
+private:
   std::string text;
 };
 
 class Text_constCallnonConst {
- public:
+public:
   Text_constCallnonConst(std::string t) : text(t) {}
   const char &operator[](std::size_t position) const {
     printf("const []\n");
     ///////////////////////////////////////////////
     //// never do this
     ///////////////////////////////////////////////
-    return static_cast<const char &>(
-        const_cast<Text_constCallnonConst &>(*this)[position]);
+    return static_cast<const char &>(const_cast<Text_constCallnonConst &>(*this)[position]);
   }
 
   char &operator[](std::size_t position) {
@@ -58,7 +57,7 @@ class Text_constCallnonConst {
     return text[position];
   }
 
- private:
+private:
   std::string text;
 };
 

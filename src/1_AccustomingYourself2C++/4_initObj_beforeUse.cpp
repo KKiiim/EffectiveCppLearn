@@ -1,6 +1,6 @@
 #include <thread>
 class Singleton {
- public:
+public:
   inline static Singleton &ins() {
     static Singleton s;
     return s;
@@ -11,7 +11,7 @@ class Singleton {
   Singleton &operator=(const Singleton &) = delete;
   Singleton &operator=(Singleton &&) = delete;
 
- private:
+private:
   Singleton() = default;
 };
 
