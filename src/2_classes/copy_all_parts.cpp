@@ -1,21 +1,25 @@
 #include <iostream>
 #include <string>
-void logCall(const std::string &funcName) { std::cout << funcName << std::endl; };
+void logCall(const std::string &funcName) {
+  std::cout << funcName << std::endl;
+};
 class Date {
-private:
+ private:
   std::string data;
 };
 class Customer {
-public:
+ public:
   Customer() { logCall("Customer default constructor"); }
   Customer(const Customer &rhs);
   Customer &operator=(const Customer &rhs);
 
-private:
+ private:
   std::string name_;
   Date lastTransaction_;
 };
-Customer::Customer(const Customer &rhs) : name_(rhs.name_) { logCall("Customer copy constructor"); }
+Customer::Customer(const Customer &rhs) : name_(rhs.name_) {
+  logCall("Customer copy constructor");
+}
 Customer &Customer::operator=(const Customer &rhs) {
   logCall("Customer copy assignment operator");
   this->name_ = rhs.name_;
@@ -23,9 +27,12 @@ Customer &Customer::operator=(const Customer &rhs) {
 }
 
 class PriorityCustomer : public Customer {
-public:
-  PriorityCustomer(int i) : priority_(i) { logCall("PriorityCustomer default constructor"); }
-  PriorityCustomer(const PriorityCustomer &rhs) : Customer(rhs), priority_(rhs.priority_) {
+ public:
+  PriorityCustomer(int i) : priority_(i) {
+    logCall("PriorityCustomer default constructor");
+  }
+  PriorityCustomer(const PriorityCustomer &rhs)
+      : Customer(rhs), priority_(rhs.priority_) {
     logCall("PriorityCustomer copy constructor");
   }
 
@@ -38,11 +45,17 @@ public:
   PriorityCustomer &operator=(const PriorityCustomer &rhs) {
     logCall("PriorityCustomer copy assignment operator");
     Customer::operator=(rhs);
+    /*
+      static_cast<Customer>(*this).operator=(rhs);
+      
+      This is not a correct implementation which will create a new base obj and modify it.
+      That is to say it will not modify this->obj's base part.
+    */
     priority_ = rhs.priority_;
     return *this;
   }
 
-private:
+ private:
   int priority_;
 };
 int main() {
