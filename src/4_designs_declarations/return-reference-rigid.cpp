@@ -43,8 +43,10 @@ int main() {
 
 #if 1
 class Rational {
-public:
-  Rational(int n = 0, int d = 1) : numerator_(n), denominator_(d) { std::cout << "constructor \n"; }
+ public:
+  Rational(int n = 0, int d = 1) : numerator_(n), denominator_(d) {
+    std::cout << "constructor \n";
+  }
   ~Rational() { std::cout << "destructor \n"; }
   Rational(Rational &r) {
     numerator_ = r.numerator_;
@@ -52,7 +54,7 @@ public:
     std::cout << "copy constructor \n";
   }
 
-private:
+ private:
   int numerator_;
   int denominator_;
   friend const Rational operator*(const Rational &lhs, const Rational &rhs);
@@ -61,11 +63,13 @@ private:
 
 inline const Rational operator*(const Rational &lhs, const Rational &rhs) {
   std::cout << "operator* \n";
-  return Rational(lhs.numerator_ * rhs.numerator_, lhs.denominator_ * rhs.denominator_);
+  return Rational(lhs.numerator_ * rhs.numerator_,
+                  lhs.denominator_ * rhs.denominator_);
 }
 
 bool operator==(const Rational &lhs, const Rational &rhs) {
-  if (lhs.denominator_ == rhs.denominator_ && lhs.numerator_ == rhs.numerator_) {
+  if (lhs.denominator_ == rhs.denominator_ &&
+      lhs.numerator_ == rhs.numerator_) {
     return true;
   }
   return false;
